@@ -40,6 +40,12 @@
         "videos",
         "audios"
       ]
+    },
+    "event_time_slots": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event-time-slot.event-time-slot",
+      "mappedBy": "event"
     }
   }
 }

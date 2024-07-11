@@ -804,6 +804,11 @@ export interface ApiEventEvent extends Schema.CollectionType {
     description: Attribute.Text;
     coverimage: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     media: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    event_time_slots: Attribute.Relation<
+      'api::event.event',
+      'oneToMany',
+      'api::event-time-slot.event-time-slot'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -838,7 +843,7 @@ export interface ApiEventTimeSlotEventTimeSlot extends Schema.CollectionType {
     description: Attribute.Text;
     event: Attribute.Relation<
       'api::event-time-slot.event-time-slot',
-      'oneToOne',
+      'manyToOne',
       'api::event.event'
     >;
     squareurl: Attribute.String;
@@ -866,6 +871,7 @@ export interface ApiGameGame extends Schema.CollectionType {
     singularName: 'game';
     pluralName: 'games';
     displayName: 'Game';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -874,14 +880,57 @@ export interface ApiGameGame extends Schema.CollectionType {
     title: Attribute.String;
     url: Attribute.String;
     description: Attribute.Text;
+    thumbnail: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    game_category: Attribute.Relation<
+      'api::game.game',
+      'manyToOne',
+      'api::game-category.game-category'
+    >;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    category: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::game.game', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::game.game', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGameCategoryGameCategory extends Schema.CollectionType {
+  collectionName: 'game_categories';
+  info: {
+    singularName: 'game-category';
+    pluralName: 'game-categories';
+    displayName: 'GameCategory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    games: Attribute.Relation<
+      'api::game-category.game-category',
+      'oneToMany',
+      'api::game.game'
+    >;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::game-category.game-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::game-category.game-category',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1027,6 +1076,7 @@ declare module '@strapi/types' {
       'api::event.event': ApiEventEvent;
       'api::event-time-slot.event-time-slot': ApiEventTimeSlotEventTimeSlot;
       'api::game.game': ApiGameGame;
+      'api::game-category.game-category': ApiGameCategoryGameCategory;
       'api::menu-category.menu-category': ApiMenuCategoryMenuCategory;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
       'api::menu-item-price.menu-item-price': ApiMenuItemPriceMenuItemPrice;
