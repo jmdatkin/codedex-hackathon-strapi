@@ -33,6 +33,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::menu-item-price.menu-item-price"
+    },
+    "slug": {
+      "type": "string"
     }
   }
 }

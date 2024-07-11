@@ -904,6 +904,7 @@ export interface ApiMenuCategoryMenuCategory extends Schema.CollectionType {
       'oneToMany',
       'api::menu-item.menu-item'
     >;
+    slug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -942,6 +943,7 @@ export interface ApiMenuItemMenuItem extends Schema.CollectionType {
       'oneToMany',
       'api::menu-item-price.menu-item-price'
     >;
+    slug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -974,6 +976,12 @@ export interface ApiMenuItemPriceMenuItemPrice extends Schema.CollectionType {
   attributes: {
     price: Attribute.BigInteger;
     label: Attribute.String;
+    slug: Attribute.String;
+    menu_item: Attribute.Relation<
+      'api::menu-item-price.menu-item-price',
+      'oneToOne',
+      'api::menu-item.menu-item'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

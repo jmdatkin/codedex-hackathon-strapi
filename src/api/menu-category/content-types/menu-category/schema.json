@@ -19,6 +19,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::menu-item.menu-item"
+    },
+    "slug": {
+      "type": "string"
     }
   }
 }
