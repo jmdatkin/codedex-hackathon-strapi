@@ -899,12 +899,13 @@ export interface ApiMenuCategoryMenuCategory extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
+    slug: Attribute.String;
     menu_items: Attribute.Relation<
       'api::menu-category.menu-category',
       'oneToMany',
       'api::menu-item.menu-item'
     >;
-    slug: Attribute.String;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -938,12 +939,17 @@ export interface ApiMenuItemMenuItem extends Schema.CollectionType {
     name: Attribute.String;
     description: Attribute.Text;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
+    menu_category: Attribute.Relation<
+      'api::menu-item.menu-item',
+      'manyToOne',
+      'api::menu-category.menu-category'
+    >;
     menu_item_prices: Attribute.Relation<
       'api::menu-item.menu-item',
       'oneToMany',
       'api::menu-item-price.menu-item-price'
     >;
-    slug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -974,12 +980,12 @@ export interface ApiMenuItemPriceMenuItemPrice extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    price: Attribute.BigInteger;
+    price: Attribute.BigInteger & Attribute.Required;
     label: Attribute.String;
-    slug: Attribute.String;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
     menu_item: Attribute.Relation<
       'api::menu-item-price.menu-item-price',
-      'oneToOne',
+      'manyToOne',
       'api::menu-item.menu-item'
     >;
     createdAt: Attribute.DateTime;

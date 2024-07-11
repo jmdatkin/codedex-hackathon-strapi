@@ -13,18 +13,22 @@
   "pluginOptions": {},
   "attributes": {
     "price": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "required": true
     },
     "label": {
       "type": "string"
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
     },
     "menu_item": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::menu-item.menu-item"
+      "relation": "manyToOne",
+      "target": "api::menu-item.menu-item",
+      "inversedBy": "menu_item_prices"
     }
   }
 }
