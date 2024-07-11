@@ -4,18 +4,14 @@
   "info": {
     "singularName": "menu-item-price",
     "pluralName": "menu-item-prices",
-    "displayName": "MenuItemPrice"
+    "displayName": "MenuItemPrice",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "menu_item": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::menu-item.menu-item"
-    },
     "price": {
       "type": "biginteger"
     },

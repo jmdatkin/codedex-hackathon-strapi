@@ -892,12 +892,18 @@ export interface ApiMenuCategoryMenuCategory extends Schema.CollectionType {
     singularName: 'menu-category';
     pluralName: 'menu-categories';
     displayName: 'MenuCategory';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String;
+    menu_items: Attribute.Relation<
+      'api::menu-category.menu-category',
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -922,19 +928,20 @@ export interface ApiMenuItemMenuItem extends Schema.CollectionType {
     singularName: 'menu-item';
     pluralName: 'menu-items';
     displayName: 'MenuItem';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    menu_category: Attribute.Relation<
-      'api::menu-item.menu-item',
-      'oneToOne',
-      'api::menu-category.menu-category'
-    >;
     name: Attribute.String;
     description: Attribute.Text;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    menu_item_prices: Attribute.Relation<
+      'api::menu-item.menu-item',
+      'oneToMany',
+      'api::menu-item-price.menu-item-price'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -959,16 +966,12 @@ export interface ApiMenuItemPriceMenuItemPrice extends Schema.CollectionType {
     singularName: 'menu-item-price';
     pluralName: 'menu-item-prices';
     displayName: 'MenuItemPrice';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    menu_item: Attribute.Relation<
-      'api::menu-item-price.menu-item-price',
-      'oneToOne',
-      'api::menu-item.menu-item'
-    >;
     price: Attribute.BigInteger;
     label: Attribute.String;
     createdAt: Attribute.DateTime;
