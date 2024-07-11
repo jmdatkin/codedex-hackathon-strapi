@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "menu_item_prices",
+  "info": {
+    "singularName": "menu-item-price",
+    "pluralName": "menu-item-prices",
+    "displayName": "MenuItemPrice"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "menu_item": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::menu-item.menu-item"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}

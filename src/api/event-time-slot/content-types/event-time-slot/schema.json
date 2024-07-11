@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_time_slots",
+  "info": {
+    "singularName": "event-time-slot",
+    "pluralName": "event-time-slots",
+    "displayName": "EventTimeSlot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "datetime": {
+      "type": "datetime"
+    },
+    "description": {
+      "type": "text"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::event.event"
+    },
+    "squareurl": {
+      "type": "string"
+    }
+  }
+}
